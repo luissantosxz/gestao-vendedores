@@ -5,10 +5,10 @@ import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.VendedorResponseDT
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.service.VendedorService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/vendedores")
@@ -23,6 +23,11 @@ public class VendedorController {
     @PostMapping
     public VendedorResponseDTO vendedorResponseDTO(@RequestBody @Valid VendedorRequestDTO dto){
         return vendedorService.cadastrar(dto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<VendedorResponseDTO>> listar(){
+        return  ResponseEntity.ok(vendedorService.vendedorResponseDTOList());
     }
 
 }

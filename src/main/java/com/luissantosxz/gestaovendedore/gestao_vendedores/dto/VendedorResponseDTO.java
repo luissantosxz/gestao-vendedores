@@ -24,6 +24,7 @@ public class VendedorResponseDTO {
                 .nome(vendedor.getNome())
                 .cpf(vendedor.getCpf())
                 .email(vendedor.getEmail())
+                .senha(vendedor.getSenha())
                 .empresaCnpj(vendedor.getEmpresa().cnpj)
                 .build();
     }

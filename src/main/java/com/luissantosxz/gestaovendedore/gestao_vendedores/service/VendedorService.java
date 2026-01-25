@@ -8,6 +8,8 @@ import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.EmpresaRepo
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VendedorService {
     private final VendedorRepository vendedorRepository;
@@ -34,7 +36,6 @@ public class VendedorService {
             throw new RuntimeException("Email já cadastrado");
         }
 
-
         if (vendedorRepository.existsByCpf(dto.getCpf())) {
             throw new RuntimeException("CPF já cadastrado");
         }
@@ -43,9 +44,14 @@ public class VendedorService {
         vendedor.setNome(dto.getNome());
         vendedor.setCpf(dto.getCpf());
         vendedor.setEmail(dto.getEmail());
+        vendedor.setSenha(dto.getSenha());
         vendedor.setEmpresa(empresa);
         Vendedor v1 = vendedorRepository.save(vendedor);
 
         return VendedorResponseDTO.of(v1);
+    }
+
+    public List<VendedorResponseDTO> vendedorResponseDTOList(){
+        return vendedorRepository.findAll().stream().map(VendedorResponseDTO::of).toList();
     }
 }
