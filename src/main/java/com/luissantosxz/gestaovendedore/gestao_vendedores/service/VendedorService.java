@@ -9,6 +9,8 @@ import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRep
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class VendedorService {
@@ -40,18 +42,32 @@ public class VendedorService {
             throw new RuntimeException("CPF já cadastrado");
         }
 
-        Vendedor vendedor = new Vendedor();
-        vendedor.setNome(dto.getNome());
-        vendedor.setCpf(dto.getCpf());
-        vendedor.setEmail(dto.getEmail());
-        vendedor.setSenha(dto.getSenha());
+        Vendedor vendedor = Vendedor.of(dto);
         vendedor.setEmpresa(empresa);
-        Vendedor v1 = vendedorRepository.save(vendedor);
+        vendedorRepository.save(vendedor);
 
-        return VendedorResponseDTO.of(v1);
+        return VendedorResponseDTO.of(vendedor);
     }
 
     public List<VendedorResponseDTO> vendedorResponseDTOList(){
         return vendedorRepository.findAll().stream().map(VendedorResponseDTO::of).toList();
     }
+
+    public VendedorResponseDTO update(VendedorRequestDTO requestDTO, UUID id){
+        var vendedor = findVendedor(id);
+        vendedor.update(requestDTO);
+
+        vendedorRepository.save(vendedor);
+        return VendedorResponseDTO.of(vendedor);
+    }
+
+    public void inativar(UUID id){
+
+    }
+
+    public Vendedor findVendedor(UUID id){
+        return vendedorRepository
+                .findById(id).orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
+    }
+
 }

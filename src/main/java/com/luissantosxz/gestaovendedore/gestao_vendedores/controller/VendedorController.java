@@ -2,13 +2,13 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.controller;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.VendedorRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.VendedorResponseDTO;
-import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.service.VendedorService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/vendedores")
@@ -28,6 +28,13 @@ public class VendedorController {
     @GetMapping
     public ResponseEntity<List<VendedorResponseDTO>> listar(){
         return  ResponseEntity.ok(vendedorService.vendedorResponseDTOList());
+    }
+
+    @PutMapping("{id}")
+    public VendedorResponseDTO vendedorResponseDTO(@RequestBody VendedorRequestDTO requestDTO,
+                                                   @PathVariable UUID id){
+        return  vendedorService.update(requestDTO, id);
+
     }
 
 }

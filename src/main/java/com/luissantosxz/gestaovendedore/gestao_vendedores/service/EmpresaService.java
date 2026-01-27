@@ -21,8 +21,6 @@ public class EmpresaService {
     public EmpresaResponseDTO cadastrar(EmpresaRequestDTO dto) {
         String cnpj = dto.getCnpj().replaceAll("\\D", "");
 
-
-
         Empresa empresa = new Empresa();
         empresa.setRazaoSocial(dto.getRazaoSocial());
         empresa.setCnpj(dto.getCnpj());

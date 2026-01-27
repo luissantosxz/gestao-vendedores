@@ -1,15 +1,18 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.entity;
 
+import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.VendedorRequestDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 @Entity
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,4 +39,19 @@ public class Vendedor {
     @JoinColumn(name = "empresa_id")
     private  Empresa empresa;
 
+    public static Vendedor of(VendedorRequestDTO request) {
+        return Vendedor.builder()
+                .nome(request.getNome())
+                .cpf(request.getCpf())
+                .email(request.getEmail())
+                .senha(request.getSenha())
+                .build();
+    }
+
+    public void update(VendedorRequestDTO request) {
+        this.nome = request.getNome();
+        this.cpf = request.getCpf();
+        this.email = request.getEmail();
+        this.senha = request.getSenha();
+    }
 }
