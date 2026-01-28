@@ -21,7 +21,7 @@ public class VendedorController {
     }
 
     @PostMapping
-    public VendedorResponseDTO vendedorResponseDTO(@RequestBody @Valid VendedorRequestDTO dto){
+    public VendedorResponseDTO cadastrar(@RequestBody @Valid VendedorRequestDTO dto){
         return vendedorService.cadastrar(dto);
     }
 
@@ -31,10 +31,19 @@ public class VendedorController {
     }
 
     @PutMapping("{id}")
-    public VendedorResponseDTO vendedorResponseDTO(@RequestBody VendedorRequestDTO requestDTO,
+    public VendedorResponseDTO editar(@RequestBody VendedorRequestDTO requestDTO,
                                                    @PathVariable UUID id){
         return  vendedorService.update(requestDTO, id);
+    }
 
+    @PutMapping("{id}/inativar")
+    public void inativar(@PathVariable UUID id){
+        vendedorService.inativar(id);
+    }
+
+    @PutMapping("{id}/ativar")
+    public void  ativar(@PathVariable UUID id){
+        vendedorService.ativar(id);
     }
 
 }

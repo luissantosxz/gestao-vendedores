@@ -1,6 +1,7 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.entity;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.VendedorRequestDTO;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.ESituacao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -39,12 +40,17 @@ public class Vendedor {
     @JoinColumn(name = "empresa_id")
     private  Empresa empresa;
 
+    @Column(name = "situacao")
+    @Enumerated(EnumType.STRING)
+    private ESituacao situacao;
+
     public static Vendedor of(VendedorRequestDTO request) {
         return Vendedor.builder()
                 .nome(request.getNome())
                 .cpf(request.getCpf())
                 .email(request.getEmail())
                 .senha(request.getSenha())
+                .situacao(ESituacao.ATIVO)
                 .build();
     }
 
