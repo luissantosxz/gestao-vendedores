@@ -1,5 +1,7 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.entity;
 
+import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaRequestDTO;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.ESituacao;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -30,7 +32,17 @@ public class Empresa {
     @OneToMany(mappedBy = "empresa")
     private List<Vendedor> vendedores;
 
-    @Column(nullable = false)
-    private Boolean ativo = true;
+    @Column(name = "situacao")
+    @Enumerated(EnumType.STRING)
+    private ESituacao situacao;
+
+    public static Empresa of(EmpresaRequestDTO dto){
+        return Empresa.builder()
+                .razaoSocial(dto.getRazaoSocial())
+                .cnpj(dto.getCnpj().replaceAll("\\D", ""))
+                .situacao(ESituacao.ATIVO)
+                .build();
+    }
+
 
 }

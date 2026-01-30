@@ -5,13 +5,11 @@ import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.VendedorResponseDT
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Empresa;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Vendedor;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.ESituacao;
-import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.EmpresaRepository;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,8 +25,8 @@ public class VendedorService {
 
         Empresa empresa = empresaService.buscarPorCnpj(cnpj);
 
-        if(!empresa.getAtivo()){
-            new RuntimeException("Nao e possivel cadastrar vendedor em empresa inativa");
+        if(empresa.getSituacao() == ESituacao.INATIVO){
+            throw new RuntimeException("Nao e possivel cadastrar vendedor em empresa inativa");
         }
 
         if (repository.existsByEmail(dto.getEmail())) {

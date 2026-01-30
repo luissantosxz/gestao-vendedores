@@ -2,7 +2,6 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.controller;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaResponseDTO;
-import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Empresa;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.service.EmpresaService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -33,4 +32,7 @@ public class EmpresaController {
     public void inativar(@PathVariable String cnpj){
         empresaService.inativarPorCnpj(cnpj);
     }
+
+    @PatchMapping("/cnpj/{cnpj}/ativar")
+    public void ativar(@PathVariable String cnpj){ empresaService.ativarPorCnpj(cnpj);}
 }

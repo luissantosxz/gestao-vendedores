@@ -3,11 +3,13 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.service;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaResponseDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Empresa;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.ESituacao;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.EmpresaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class EmpresaService {
@@ -19,12 +21,8 @@ public class EmpresaService {
     }
 
     public EmpresaResponseDTO cadastrar(EmpresaRequestDTO dto) {
-        String cnpj = dto.getCnpj().replaceAll("\\D", "");
 
-        Empresa empresa = new Empresa();
-        empresa.setRazaoSocial(dto.getRazaoSocial());
-        empresa.setCnpj(dto.getCnpj());
-        empresa.setAtivo(true);
+        var empresa = Empresa.of(dto);
 
         Empresa salva = empresaRepository.save(empresa);
         return EmpresaResponseDTO.of(salva);
@@ -38,15 +36,26 @@ public class EmpresaService {
     }
 
     public Empresa buscarPorCnpj(String cnpj) {
-        return empresaRepository.findByCnpjAndAtivoTrue(cnpj)
-                .orElseThrow(() -> new RuntimeException("Empresa não encontrada para o CNPJ informado"));
+        return empresaRepository.findByCnpj(cnpj)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Empresa nao encontrada")
+                );
     }
 
     public void inativarPorCnpj(String cnpj) {
-        Empresa empresa = empresaRepository.findByCnpjAndAtivoTrue(cnpj)
-                .orElseThrow(() -> new RuntimeException("Empresa não encontrada ou já inativa"));
 
-        empresa.setAtivo(false);
+        var empresa = buscarPorCnpj(cnpj);
+        empresa.setSituacao(ESituacao.INATIVO);
+
         empresaRepository.save(empresa);
+    }
+    
+    public void ativarPorCnpj(String cnpj){
+        
+        var empresa = buscarPorCnpj(cnpj);
+        empresa.setSituacao(ESituacao.ATIVO);
+
+        empresaRepository.save(empresa);
+        
     }
 }
