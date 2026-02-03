@@ -30,7 +30,7 @@ public class VendedorController {
         return  ResponseEntity.ok(vendedorService.vendedorResponseDTOList());
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{id}/editar")
     public VendedorResponseDTO editar(@RequestBody VendedorRequestDTO requestDTO,
                                                    @PathVariable UUID id){
         return  vendedorService.update(requestDTO, id);

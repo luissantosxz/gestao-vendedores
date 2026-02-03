@@ -7,6 +7,7 @@ import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Vendedor;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.ESituacao;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class VendedorService {
 
     private final VendedorRepository repository;
     private final EmpresaService empresaService;
+    private final PasswordEncoder passwordEncoder;
 
     public VendedorResponseDTO cadastrar(VendedorRequestDTO dto){
 
@@ -38,6 +40,7 @@ public class VendedorService {
         }
 
         Vendedor vendedor = Vendedor.of(dto);
+        vendedor.setSenha(passwordEncoder.encode(dto.getSenha()));
         vendedor.setEmpresa(empresa);
         repository.save(vendedor);
 
@@ -51,6 +54,7 @@ public class VendedorService {
     public VendedorResponseDTO update(VendedorRequestDTO requestDTO, UUID id){
         var vendedor = findVendedor(id);
         vendedor.update(requestDTO);
+        vendedor.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
 
         repository.save(vendedor);
         return VendedorResponseDTO.of(vendedor);

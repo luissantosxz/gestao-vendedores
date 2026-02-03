@@ -4,19 +4,17 @@ import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaResponseDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.service.EmpresaService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/empresas")
 public class EmpresaController {
 
     private final EmpresaService empresaService;
-
-    public EmpresaController(EmpresaService empresaService) {
-        this.empresaService = empresaService;
-    }
 
     @GetMapping
     public List<EmpresaResponseDTO> listar(){
@@ -28,11 +26,11 @@ public class EmpresaController {
        return empresaService.cadastrar(requestDTO);
     }
 
-    @PatchMapping("/cnpj/{cnpj}/inativar")
+    @PutMapping("/cnpj/{cnpj}/inativar")
     public void inativar(@PathVariable String cnpj){
         empresaService.inativarPorCnpj(cnpj);
     }
 
-    @PatchMapping("/cnpj/{cnpj}/ativar")
+    @PutMapping("/cnpj/{cnpj}/ativar")
     public void ativar(@PathVariable String cnpj){ empresaService.ativarPorCnpj(cnpj);}
 }
