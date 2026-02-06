@@ -5,6 +5,8 @@ import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.VendedorResponseDT
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Empresa;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Vendedor;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.ESituacao;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.exceptionhandler.BadRequest;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.exceptionhandler.NotFound;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,15 +30,15 @@ public class VendedorService {
         Empresa empresa = empresaService.buscarPorCnpj(cnpj);
 
         if(empresa.getSituacao() == ESituacao.INATIVO){
-            throw new RuntimeException("Nao e possivel cadastrar vendedor em empresa inativa");
+            throw new BadRequest("Não é possivel cadastrar vendedor em empresa inativa");
         }
 
         if (repository.existsByEmail(dto.getEmail())) {
-            throw new RuntimeException("Email já cadastrado");
+            throw new BadRequest("Email já cadastrado para outro usuário");
         }
 
         if (repository.existsByCpf(dto.getCpf())) {
-            throw new RuntimeException("CPF já cadastrado");
+            throw new BadRequest("CPF já cadastrado para outro usuário");
         }
 
         Vendedor vendedor = Vendedor.of(dto);
@@ -74,7 +76,7 @@ public class VendedorService {
 
     public Vendedor findVendedor(UUID id){
         return repository
-                .findById(id).orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
+                .findById(id).orElseThrow(() -> new NotFound("Vendedor não encontrado"));
     }
 
 }

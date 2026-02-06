@@ -11,5 +11,4 @@ public interface EmpresaRepository extends JpaRepository<Empresa, UUID> {
 
     Optional<Empresa> findByCnpj(String cnpj);
 
-
 }

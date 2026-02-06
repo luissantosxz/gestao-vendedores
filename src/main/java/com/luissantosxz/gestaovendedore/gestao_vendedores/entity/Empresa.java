@@ -22,10 +22,10 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
-    @NotBlank
+    @NotBlank(message = "Razão social é obrigatória")
     public String razaoSocial;
 
-    @NotBlank
+    @NotBlank(message = "CNPJ é obrigatório")
     @Column(unique = true)
     public String cnpj;
 

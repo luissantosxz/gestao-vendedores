@@ -19,4 +19,5 @@ public class EmpresaRequestDTO {
     @NotBlank
     @Size(min = 14, max = 14)
     private String cnpj;
+
 }
