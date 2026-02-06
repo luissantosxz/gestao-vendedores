@@ -1,17 +1,15 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.enums;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@RequiredArgsConstructor
 public enum ESituacao {
     ATIVO("A"),
     INATIVO("I");
 
-    @Getter
-    private String descricao;
-
-    ESituacao(String descricao){
-        this.descricao = descricao;
-    }
-
+    private final String descricao;
 }
