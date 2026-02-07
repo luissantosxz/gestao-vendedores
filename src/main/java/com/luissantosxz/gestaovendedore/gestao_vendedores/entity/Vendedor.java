@@ -23,17 +23,18 @@ public class Vendedor {
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
-    @NotBlank
+    @NotBlank(message = ("Nome e obrigatorio"))
     public String nome;
 
     @Email
-    @NotBlank
+    @NotBlank(message = "E-mail e obrigatorio")
     public String email;
 
-    @NotBlank
+    @NotBlank(message = "CPF e obrigatorio")
     public String cpf;
 
     @Size(min = 5)
+    @NotBlank(message = "Senha e obrigatoria")
     public String senha;
 
     @ManyToOne(optional = false)

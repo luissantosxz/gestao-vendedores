@@ -33,12 +33,12 @@ public class VendedorService {
             throw new BadRequest("Não é possivel cadastrar vendedor em empresa inativa");
         }
 
-        if (repository.existsByEmail(dto.getEmail())) {
-            throw new BadRequest("Email já cadastrado para outro usuário");
-        }
-
         if (repository.existsByCpf(dto.getCpf())) {
             throw new BadRequest("CPF já cadastrado para outro usuário");
+        }
+
+        if (repository.existsByEmail(dto.getEmail())) {
+            throw new BadRequest("Email já cadastrado para outro usuário");
         }
 
         Vendedor vendedor = Vendedor.of(dto);
