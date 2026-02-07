@@ -2,6 +2,7 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.controller;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.EmpresaResponseDTO;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Empresa;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.service.EmpresaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,11 @@ public class EmpresaController {
     public EmpresaResponseDTO cadastrar(@RequestBody @Valid EmpresaRequestDTO requestDTO){
        return empresaService.cadastrar(requestDTO);
     }
+
+    @GetMapping("/cnpj/{cnpj}/buscar")
+    public EmpresaResponseDTO buscar( @PathVariable String cnpj){
+        var empresa = empresaService.buscarPorCnpj(cnpj);
+        return EmpresaResponseDTO.of(empresa); }
 
     @PutMapping("/cnpj/{cnpj}/inativar")
     public void inativar(@PathVariable String cnpj){
