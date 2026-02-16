@@ -17,11 +17,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "empresa")
 public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
+    @Column(name = "razao_social")
     @NotBlank(message = "Razão social é obrigatória")
     public String razaoSocial;
 
