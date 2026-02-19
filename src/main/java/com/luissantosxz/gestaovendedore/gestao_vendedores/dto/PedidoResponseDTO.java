@@ -1,0 +1,33 @@
+package com.luissantosxz.gestaovendedore.gestao_vendedores.dto;
+
+import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Pedido;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EStatusPedido;
+import lombok.Builder;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Data
+@Builder
+public class PedidoResponseDTO {
+    private UUID id;
+    private Double valor;
+    private EStatusPedido status;
+    private LocalDateTime dataPedido;
+    private UUID vendedorId;
+    private String empresaId;
+
+    public static PedidoResponseDTO of(Pedido pedido){
+        return PedidoResponseDTO.builder()
+                .id(pedido.getId())
+                .vendedorId(pedido.getVendedor().getId())
+                .valor(pedido.getValor())
+                .status(EStatusPedido.CADASTRADO)
+                .dataPedido(pedido.getDataPedido())
+                .empresaId(pedido.getVendedor().getEmpresa().getRazaoSocial())
+                .build();
+    }
+
+
+}

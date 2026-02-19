@@ -22,6 +22,7 @@ public class SecurityConfig{
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/pedidos", "/pedidos/**").permitAll()
                         .anyRequest().permitAll()
                 );
 
