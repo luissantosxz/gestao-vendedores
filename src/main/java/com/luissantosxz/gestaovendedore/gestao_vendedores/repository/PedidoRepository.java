@@ -17,7 +17,4 @@ public interface PedidoRepository extends JpaRepository<Pedido, UUID> {
             UUID empresaId, LocalDateTime inicio, LocalDateTime fim
     );
 
-    List<Pedido> findByVendedor_Id(UUID vendedorId);
-
-
 }

@@ -12,6 +12,7 @@ import java.util.UUID;
 @Builder
 public class PedidoResponseDTO {
     private UUID id;
+    private String nome;
     private Double valor;
     private EStatusPedido status;
     private LocalDateTime dataPedido;
@@ -21,6 +22,7 @@ public class PedidoResponseDTO {
     public static PedidoResponseDTO of(Pedido pedido){
         return PedidoResponseDTO.builder()
                 .id(pedido.getId())
+                .nome(pedido.getNome())
                 .vendedorId(pedido.getVendedor().getId())
                 .valor(pedido.getValor())
                 .status(EStatusPedido.CADASTRADO)

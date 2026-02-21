@@ -26,10 +26,22 @@ public class PedidoController {
 
     @GetMapping("/vendedor/{vendedorId}")
     public ResponseEntity<List<PedidoResponseDTO>>
-    buscarPorVendedor(@PathVariable UUID vendedorId, @RequestParam LocalDateTime inicio,
+    buscarPedidoPorVendedor(@PathVariable UUID vendedorId, @RequestParam LocalDateTime inicio,
                       @RequestParam LocalDateTime fim)
     {
-        return ResponseEntity.ok(service.buscarPorVendedor(vendedorId, inicio, fim));
+        return ResponseEntity.ok(service.buscarPedidosPorVendedor(vendedorId, inicio, fim));
     }
 
+    @GetMapping("/empresa/{empresaId}")
+    public ResponseEntity<List<PedidoResponseDTO>>
+    buscarPedidoPorEmpresa(@PathVariable UUID empresaId, @RequestParam LocalDateTime inicio,
+                     @RequestParam LocalDateTime fim)
+    {
+        return ResponseEntity.ok(service.buscarPedidosPorEmpresa(empresaId, inicio, fim));
+    }
+
+    @GetMapping("listar")
+    public ResponseEntity<List<PedidoResponseDTO>> listarPedidos(){
+        return ResponseEntity.ok(service.listarTodosPedidos());
+    }
 }

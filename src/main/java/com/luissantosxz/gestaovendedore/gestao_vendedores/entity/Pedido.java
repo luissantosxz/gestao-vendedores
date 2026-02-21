@@ -3,9 +3,12 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.entity;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EStatusPedido;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 
 import java.time.LocalDateTime;
@@ -15,18 +18,22 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 @Builder
+@NoArgsConstructor
 public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotBlank(message = "Nome do pedido é obrigatorio")
+    private String nome;
 
     @ManyToOne
     @JoinColumn(name = "vendedor", nullable = false)
     private Vendedor vendedor;
 
     @Column(nullable = false)
+    @NotNull
     private Double valor;
 
     @Enumerated(EnumType.STRING)
@@ -38,6 +45,7 @@ public class Pedido {
 
     public static Pedido of(PedidoRequestDTO dto, Vendedor vendedor){
         return Pedido.builder()
+                .nome(dto.getNome())
                 .vendedor(vendedor)
                 .valor(dto.getValor())
                 .statusPedido(EStatusPedido.CADASTRADO)

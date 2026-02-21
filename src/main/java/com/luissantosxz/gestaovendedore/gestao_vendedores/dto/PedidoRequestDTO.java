@@ -11,6 +11,9 @@ public class PedidoRequestDTO {
     @NotNull(message = "Vendedor é obrigatório")
     private UUID vendedorId;
 
+    @NotNull(message = "Nome do pedido é obrigatorio")
+    private String nome;
+
     @NotNull(message = "Valor é obrigatório")
     @Positive(message = "Valor deve ser positivo")
     private Double valor;

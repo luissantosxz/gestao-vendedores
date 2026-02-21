@@ -32,10 +32,29 @@ public class PedidoService {
         return PedidoResponseDTO.of(salvo);
     }
 
-    public List<PedidoResponseDTO> buscarPorVendedor(UUID vendedorId, LocalDateTime inicio, LocalDateTime fim) {
+    public List<PedidoResponseDTO> buscarPedidosPorVendedor(UUID vendedorId, LocalDateTime inicio, LocalDateTime fim) {
         var pedidos = repository.findByVendedorIdAndDataPedidoBetween(vendedorId, inicio, fim);
 
         return pedidos.stream().map(PedidoResponseDTO::of).toList();
 
     }
+
+
+    public  List<PedidoResponseDTO> buscarPedidosPorEmpresa(UUID empresaId,
+                                                            LocalDateTime inicio,
+                                                            LocalDateTime fim){
+        var pedidos = repository.findByVendedorEmpresaIdAndDataPedidoBetween(empresaId, inicio, fim);
+
+        return pedidos.stream().map(PedidoResponseDTO::of).toList();
+
+
+    }
+
+
+    public List<PedidoResponseDTO> listarTodosPedidos (){
+        var pedidos = repository.findAll();
+
+        return pedidos.stream().map(PedidoResponseDTO::of).toList();
+    }
+
 }
