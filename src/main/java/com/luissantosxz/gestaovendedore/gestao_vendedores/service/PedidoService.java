@@ -3,7 +3,6 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.service;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoResponseDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Pedido;
-import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Vendedor;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.exceptionhandler.NotFound;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.PedidoRepository;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
@@ -38,7 +37,6 @@ public class PedidoService {
         return pedidos.stream().map(PedidoResponseDTO::of).toList();
 
     }
-
 
     public  List<PedidoResponseDTO> buscarPedidosPorEmpresa(UUID empresaId,
                                                             LocalDateTime inicio,
