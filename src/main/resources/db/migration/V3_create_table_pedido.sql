@@ -7,5 +7,5 @@ CREATE TABLE pedido(
 
     CONSTRAINT fk_pedido_vendedor
         FOREIGN KEY (vendedor_id)
-        REFERENCES vendedor_id
+        REFERENCES vendedor(id)
 );
