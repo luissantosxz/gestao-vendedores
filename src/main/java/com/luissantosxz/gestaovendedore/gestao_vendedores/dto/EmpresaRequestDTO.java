@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmpresaRequestDTO {
 
-    @NotBlank
+    @NotBlank(message = "Razão social é obrigatorio")
     private String razaoSocial;
 
-    @NotBlank
-    @Size(min = 14, max = 14)
+    @NotBlank(message = "CNPJ deve ser valido")
+    @Size(min = 14, max = 14, message = "Número de caracteres invalido")
     private String cnpj;
 
 

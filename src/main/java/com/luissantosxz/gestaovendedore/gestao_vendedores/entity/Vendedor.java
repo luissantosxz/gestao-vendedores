@@ -22,22 +22,23 @@ import java.util.UUID;
 public class Vendedor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    public UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQUENCE_VENDEDOR")
+    @SequenceGenerator(sequenceName = "SEQUENCE_VENDEDOR", name = "SEQUENCE_VENDEDOR", allocationSize = 1   )
+    private Integer id;
 
     @NotBlank(message = ("Nome e obrigatorio"))
-    public String nome;
+    private String nome;
 
     @Email
     @NotBlank(message = "E-mail e obrigatorio")
-    public String email;
+    private String email;
 
     @NotBlank(message = "CPF e obrigatorio")
-    public String cpf;
+    private String cpf;
 
     @Size(min = 5)
     @NotBlank(message = "Senha e obrigatoria")
-    public String senha;
+    private String senha;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "empresa_id")

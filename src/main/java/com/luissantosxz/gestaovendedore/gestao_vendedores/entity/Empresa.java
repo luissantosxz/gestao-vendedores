@@ -20,8 +20,9 @@ import java.util.UUID;
 @Table(name = "empresa")
 public class Empresa {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    public UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQUENCE_EMPRESA")
+    @SequenceGenerator(name = "SEQUENCE_EMPRESA", sequenceName = "SEQUENCE_EMPRESA", allocationSize = 1)
+    public Integer id;
 
     @Column(name = "razao_social")
     @NotBlank(message = "Razão social é obrigatória")

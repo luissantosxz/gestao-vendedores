@@ -7,11 +7,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public interface PedidoRepository extends JpaRepository<Pedido, UUID>, PedidoRepositoryCustom {
+public interface PedidoRepository extends JpaRepository<Pedido, Integer>, PedidoRepositoryCustom {
 
     List<Pedido> findByVendedorIdAndDataPedidoBetween(
-            UUID vendedorId, LocalDateTime inicio, LocalDateTime fim
+            Integer vendedorId, LocalDateTime inicio, LocalDateTime fim
     );
-
-
+    
 }

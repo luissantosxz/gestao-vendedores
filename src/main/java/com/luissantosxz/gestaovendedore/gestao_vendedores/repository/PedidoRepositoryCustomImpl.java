@@ -19,7 +19,7 @@ public class PedidoRepositoryCustomImpl implements PedidoRepositoryCustom{
     private final EntityManager entityManager;
 
     @Override
-    public List<Pedido> findByVendedorEmpresaIdAndDataPedidoBetween(UUID empresaId, LocalDateTime inicio, LocalDateTime fim) {
+    public List<Pedido> findByVendedorEmpresaIdAndDataPedidoBetween(Integer empresaId, LocalDateTime inicio, LocalDateTime fim) {
         return new JPAQueryFactory(entityManager)
                 .select(pedido)
                 .from(pedido)

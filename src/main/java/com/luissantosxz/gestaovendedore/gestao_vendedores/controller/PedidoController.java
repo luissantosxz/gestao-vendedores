@@ -26,7 +26,7 @@ public class PedidoController {
 
     @GetMapping("/vendedor/{vendedorId}")
     public ResponseEntity<List<PedidoResponseDTO>>
-    buscarPedidoPorVendedor(@PathVariable UUID vendedorId, @RequestParam LocalDateTime inicio,
+    buscarPedidoPorVendedor(@PathVariable Integer vendedorId, @RequestParam LocalDateTime inicio,
                       @RequestParam LocalDateTime fim)
     {
         return ResponseEntity.ok(service.buscarPedidosPorVendedor(vendedorId, inicio, fim));
@@ -34,7 +34,7 @@ public class PedidoController {
 
     @GetMapping("/empresa/{empresaId}")
     public ResponseEntity<List<PedidoResponseDTO>>
-    buscarPedidoPorEmpresa(@PathVariable UUID empresaId, @RequestParam LocalDateTime inicio,
+    buscarPedidoPorEmpresa(@PathVariable Integer empresaId, @RequestParam LocalDateTime inicio,
                      @RequestParam LocalDateTime fim)
     {
         return ResponseEntity.ok(service.buscarPedidosPorEmpresa(empresaId, inicio, fim));

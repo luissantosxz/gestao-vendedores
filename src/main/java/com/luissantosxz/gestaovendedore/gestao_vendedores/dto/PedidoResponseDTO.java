@@ -11,12 +11,12 @@ import java.util.UUID;
 @Data
 @Builder
 public class PedidoResponseDTO {
-    private UUID id;
+    private Integer id;
     private String nome;
     private Double valor;
     private EStatusPedido status;
     private LocalDateTime dataPedido;
-    private UUID vendedorId;
+    private Integer vendedorId;
     private String empresaId;
 
     public static PedidoResponseDTO of(Pedido pedido){

@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface PedidoRepositoryCustom {
 
     List<Pedido> findByVendedorEmpresaIdAndDataPedidoBetween(
-            UUID empresaId, LocalDateTime inicio, LocalDateTime fim
+            Integer empresaId, LocalDateTime inicio, LocalDateTime fim
     );
 
 

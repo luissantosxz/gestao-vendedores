@@ -22,8 +22,9 @@ import java.util.UUID;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQUENCE_PEDIDO")
+    @SequenceGenerator(sequenceName = "SEQUENCE_PEDIDO", name = "SEQUENCE_PEDIDO", allocationSize = 1)
+    private Integer id;
 
     @NotBlank(message = "Nome do pedido é obrigatorio")
     private String nome;

@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @Getter
 public class VendedorResponseDTO {
-    private UUID id;
+    private Integer id;
     private String nome;
     private String email;
     private String cpf;

@@ -8,8 +8,9 @@ import java.util.UUID;
 
 @Data
 public class PedidoRequestDTO {
+
     @NotNull(message = "Vendedor é obrigatório")
-    private UUID vendedorId;
+    private Integer vendedorId;
 
     @NotNull(message = "Nome do pedido é obrigatorio")
     private String nome;

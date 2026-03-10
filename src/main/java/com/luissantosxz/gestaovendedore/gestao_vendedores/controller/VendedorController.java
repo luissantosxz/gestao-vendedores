@@ -32,17 +32,17 @@ public class VendedorController {
 
     @PutMapping("{id}/editar")
     public VendedorResponseDTO editar(@RequestBody VendedorRequestDTO requestDTO,
-                                                   @PathVariable UUID id){
+                                                   @PathVariable Integer id){
         return  vendedorService.update(requestDTO, id);
     }
 
     @PutMapping("{id}/inativar")
-    public void inativar(@PathVariable UUID id){
+    public void inativar(@PathVariable Integer id){
         vendedorService.inativar(id);
     }
 
     @PutMapping("{id}/ativar")
-    public void  ativar(@PathVariable UUID id){
+    public void  ativar(@PathVariable Integer id){
         vendedorService.ativar(id);
     }
 

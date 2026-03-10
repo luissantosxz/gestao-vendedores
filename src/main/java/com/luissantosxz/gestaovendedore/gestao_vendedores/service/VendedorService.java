@@ -53,7 +53,7 @@ public class VendedorService {
         return repository.findAll().stream().map(VendedorResponseDTO::of).toList();
     }
 
-    public VendedorResponseDTO update(VendedorRequestDTO requestDTO, UUID id){
+    public VendedorResponseDTO update(VendedorRequestDTO requestDTO, Integer id){
         var vendedor = findVendedor(id);
         vendedor.update(requestDTO);
         vendedor.setSenha(passwordEncoder.encode(requestDTO.getSenha()));
@@ -62,19 +62,19 @@ public class VendedorService {
         return VendedorResponseDTO.of(vendedor);
     }
 
-    public void inativar(UUID id){
+    public void inativar(Integer id){
         var vendedor = findVendedor(id);
         vendedor.setSituacao(ESituacao.INATIVO);
         repository.save(vendedor);
     }
 
-    public void ativar(UUID id){
+    public void ativar(Integer id){
         var vendedor = findVendedor(id);
         vendedor.setSituacao(ESituacao.ATIVO);
         repository.save(vendedor);
     }
 
-    public Vendedor findVendedor(UUID id){
+    public Vendedor findVendedor(Integer id){
         return repository
                 .findById(id).orElseThrow(() -> new NotFound("Vendedor não encontrado"));
     }

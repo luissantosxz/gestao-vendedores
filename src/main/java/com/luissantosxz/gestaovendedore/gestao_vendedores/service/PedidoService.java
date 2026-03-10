@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,14 +30,14 @@ public class PedidoService {
         return PedidoResponseDTO.of(salvo);
     }
 
-    public List<PedidoResponseDTO> buscarPedidosPorVendedor(UUID vendedorId, LocalDateTime inicio, LocalDateTime fim) {
+    public List<PedidoResponseDTO> buscarPedidosPorVendedor(Integer vendedorId, LocalDateTime inicio, LocalDateTime fim) {
         var pedidos = repository.findByVendedorIdAndDataPedidoBetween(vendedorId, inicio, fim);
 
         return pedidos.stream().map(PedidoResponseDTO::of).toList();
 
     }
 
-    public  List<PedidoResponseDTO> buscarPedidosPorEmpresa(UUID empresaId,
+    public  List<PedidoResponseDTO> buscarPedidosPorEmpresa(Integer empresaId,
                                                             LocalDateTime inicio,
                                                             LocalDateTime fim){
         var pedidos = repository.findByVendedorEmpresaIdAndDataPedidoBetween(empresaId, inicio, fim);

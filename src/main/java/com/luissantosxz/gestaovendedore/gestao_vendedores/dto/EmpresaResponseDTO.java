@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Builder
 public class EmpresaResponseDTO {
-    private UUID id;
+    private Integer id;
     private String razaoSocial;
     private String cnpj;
 
