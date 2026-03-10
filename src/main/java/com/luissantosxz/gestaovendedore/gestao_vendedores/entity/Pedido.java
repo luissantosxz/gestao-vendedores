@@ -1,6 +1,7 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.entity;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EConfirmacao;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EStatusPedido;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -41,6 +42,8 @@ public class Pedido {
     @Column(nullable = false)
     private EStatusPedido statusPedido;
 
+    private EConfirmacao eConfirmacao;
+
     @Column(nullable = false, name = "data_pedido")
     private LocalDateTime dataPedido;
 
@@ -50,6 +53,7 @@ public class Pedido {
                 .vendedor(vendedor)
                 .valor(dto.getValor())
                 .statusPedido(EStatusPedido.CADASTRADO)
+                .eConfirmacao((EConfirmacao.PENDENTE))
                 .dataPedido(LocalDateTime.now())
                 .build();
     }

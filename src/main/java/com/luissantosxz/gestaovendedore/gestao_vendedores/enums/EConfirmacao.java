@@ -1,15 +1,15 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.enums;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
-public enum ESituacao {
-    ATIVO("ATIVO"),
-    INATIVO("INATIVO");
+@AllArgsConstructor
+public enum EConfirmacao {
+
+    PENDENTE("PENDENTE"),
+    CONFIRMADO("CONFIRMADO"),
+    CANCELADO("CANCELADO");
 
     private final String descricao;
 }

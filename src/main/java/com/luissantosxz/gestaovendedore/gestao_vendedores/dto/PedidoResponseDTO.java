@@ -1,6 +1,7 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.dto;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Pedido;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EConfirmacao;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EStatusPedido;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class PedidoResponseDTO {
     private LocalDateTime dataPedido;
     private Integer vendedorId;
     private String empresaId;
+    private EConfirmacao eConfirmacao;
 
     public static PedidoResponseDTO of(Pedido pedido){
         return PedidoResponseDTO.builder()
@@ -25,7 +27,8 @@ public class PedidoResponseDTO {
                 .nome(pedido.getNome())
                 .vendedorId(pedido.getVendedor().getId())
                 .valor(pedido.getValor())
-                .status(EStatusPedido.CADASTRADO)
+                .status(pedido.getStatusPedido())
+                .eConfirmacao(pedido.getEConfirmacao())
                 .dataPedido(pedido.getDataPedido())
                 .empresaId(pedido.getVendedor().getEmpresa().getRazaoSocial())
                 .build();

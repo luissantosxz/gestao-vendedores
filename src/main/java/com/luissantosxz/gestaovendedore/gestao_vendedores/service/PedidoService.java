@@ -3,6 +3,7 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.service;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoResponseDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Pedido;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EConfirmacao;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.exceptionhandler.NotFound;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.PedidoRepository;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
@@ -52,6 +53,25 @@ public class PedidoService {
         var pedidos = repository.findAll();
 
         return pedidos.stream().map(PedidoResponseDTO::of).toList();
+    }
+
+    public PedidoResponseDTO confirmaPedido(Integer id){
+        var pedido = buscarPedidoPorId(id);
+        pedido.setEConfirmacao(EConfirmacao.CONFIRMADO);
+        repository.save(pedido);
+
+        return PedidoResponseDTO.of(pedido);
+    }
+
+    public PedidoResponseDTO cancelaPedido(Integer id){
+        var pedido = buscarPedidoPorId(id);
+        pedido.setEConfirmacao(EConfirmacao.CANCELADO);
+        repository.save(pedido);
+        return PedidoResponseDTO.of(pedido);
+    }
+
+    private Pedido buscarPedidoPorId(Integer id){
+        return repository.findById(id).orElseThrow(()-> new NotFound("Pedido não encontrado"));
     }
 
 }

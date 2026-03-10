@@ -44,4 +44,15 @@ public class PedidoController {
     public ResponseEntity<List<PedidoResponseDTO>> listarPedidos(){
         return ResponseEntity.ok(service.listarTodosPedidos());
     }
+
+    @PutMapping("{id}/confirmar")
+    public ResponseEntity<PedidoResponseDTO> confirmaPedido(@PathVariable Integer id){
+        return ResponseEntity.ok(service.confirmaPedido(id));
+    }
+
+    @PutMapping("{id}/cancelar")
+    public ResponseEntity<PedidoResponseDTO> cancelaPedido(@PathVariable Integer id){
+        return ResponseEntity.ok(service.cancelaPedido(id));
+    }
+
 }
