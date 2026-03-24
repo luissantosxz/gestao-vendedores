@@ -19,4 +19,7 @@ public class PedidoRequestDTO {
     @Positive(message = "Valor deve ser positivo")
     private Double valor;
 
+
+    private String observacao;
+
 }

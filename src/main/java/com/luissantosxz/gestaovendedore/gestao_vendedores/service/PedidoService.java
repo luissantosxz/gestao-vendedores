@@ -2,16 +2,22 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.service;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoResponseDTO;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.QuantidadePorStatusDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.entity.Pedido;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EConfirmacao;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EStatusPedido;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.exceptionhandler.NotFound;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.predicate.PedidoPredicate;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.PedidoRepository;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.repository.VendedorRepository;
+import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.luissantosxz.gestaovendedore.gestao_vendedores.entity.QPedido.pedido;
 
 @Service
 @RequiredArgsConstructor
@@ -68,6 +74,18 @@ public class PedidoService {
         pedido.setEConfirmacao(EConfirmacao.CANCELADO);
         repository.save(pedido);
         return PedidoResponseDTO.of(pedido);
+    }
+
+    public List<QuantidadePorStatusDTO> quantidadePorStatus(Integer empresaId, Integer vendedorId,
+                                                            LocalDateTime inicio, LocalDateTime fim){
+        Predicate predicate = PedidoPredicate.filtro(empresaId, vendedorId, inicio, fim);
+
+        var res =  repository.quantidadePorStatus(predicate);
+
+        return res.stream().map(tuple -> new QuantidadePorStatusDTO(
+                tuple.get(pedido.statusPedido).name(),
+                tuple.get(pedido.id.count())
+        )).toList();
     }
 
     private Pedido buscarPedidoPorId(Integer id){

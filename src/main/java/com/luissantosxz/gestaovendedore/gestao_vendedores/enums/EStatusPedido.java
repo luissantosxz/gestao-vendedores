@@ -12,5 +12,4 @@ public enum EStatusPedido {
 
     private final String descricao;
 
-
 }

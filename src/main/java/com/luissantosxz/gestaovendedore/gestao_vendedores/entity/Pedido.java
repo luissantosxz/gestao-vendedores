@@ -47,6 +47,9 @@ public class Pedido {
     @Column(nullable = false, name = "data_pedido")
     private LocalDateTime dataPedido;
 
+    @Column(name = "observacao")
+    private String observacao;
+
     public static Pedido of(PedidoRequestDTO dto, Vendedor vendedor){
         return Pedido.builder()
                 .nome(dto.getNome())
@@ -55,6 +58,7 @@ public class Pedido {
                 .statusPedido(EStatusPedido.CADASTRADO)
                 .eConfirmacao((EConfirmacao.PENDENTE))
                 .dataPedido(LocalDateTime.now())
+                .observacao(dto.getObservacao())
                 .build();
     }
 }

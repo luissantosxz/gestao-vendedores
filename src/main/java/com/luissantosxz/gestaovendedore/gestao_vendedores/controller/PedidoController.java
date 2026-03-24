@@ -2,8 +2,10 @@ package com.luissantosxz.gestaovendedore.gestao_vendedores.controller;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoResponseDTO;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.QuantidadePorStatusDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.service.PedidoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,4 +57,13 @@ public class PedidoController {
         return ResponseEntity.ok(service.cancelaPedido(id));
     }
 
+    @GetMapping("relatorio/status")
+    public List<QuantidadePorStatusDTO> quantidadePorStatusDTOS(
+            @RequestParam(required = false) Integer empresaId,
+            @RequestParam(required = false) Integer vendedorId,
+            @RequestParam(required = false) LocalDateTime inicio,
+            @RequestParam(required = false) LocalDateTime fim
+    ){
+        return service.quantidadePorStatus(empresaId, vendedorId, inicio, fim);
+    }
 }

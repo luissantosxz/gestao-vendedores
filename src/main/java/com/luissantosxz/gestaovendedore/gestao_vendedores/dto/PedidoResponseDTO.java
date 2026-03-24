@@ -20,6 +20,7 @@ public class PedidoResponseDTO {
     private Integer vendedorId;
     private String empresaId;
     private EConfirmacao eConfirmacao;
+    private String observacaoPedido;
 
     public static PedidoResponseDTO of(Pedido pedido){
         return PedidoResponseDTO.builder()
@@ -30,6 +31,7 @@ public class PedidoResponseDTO {
                 .status(pedido.getStatusPedido())
                 .eConfirmacao(pedido.getEConfirmacao())
                 .dataPedido(pedido.getDataPedido())
+                .observacaoPedido(pedido.getObservacao())
                 .empresaId(pedido.getVendedor().getEmpresa().getRazaoSocial())
                 .build();
     }
