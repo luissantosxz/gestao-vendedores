@@ -63,6 +63,7 @@ public class PedidoService {
 
     public PedidoResponseDTO confirmaPedido(Integer id){
         var pedido = buscarPedidoPorId(id);
+        pedido.setStatusPedido(EStatusPedido.CONCLUIDO);
         pedido.setEConfirmacao(EConfirmacao.CONFIRMADO);
         repository.save(pedido);
 
@@ -72,6 +73,7 @@ public class PedidoService {
     public PedidoResponseDTO cancelaPedido(Integer id){
         var pedido = buscarPedidoPorId(id);
         pedido.setEConfirmacao(EConfirmacao.CANCELADO);
+        pedido.setStatusPedido(EStatusPedido.CONCLUIDO);
         repository.save(pedido);
         return PedidoResponseDTO.of(pedido);
     }
