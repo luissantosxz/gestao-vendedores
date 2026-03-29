@@ -1,6 +1,7 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.entity;
 
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
+import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoResponseDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EConfirmacao;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.enums.EStatusPedido;
 import jakarta.persistence.*;
@@ -61,6 +62,12 @@ public class Pedido {
                 .observacao(dto.getObservacao())
                 .build();
     }
+
+    public void atualizarPedido(PedidoRequestDTO dto){
+        this.nome = dto.getNome();
+        this.valor = dto.getValor();
+    }
+
 }
 
 

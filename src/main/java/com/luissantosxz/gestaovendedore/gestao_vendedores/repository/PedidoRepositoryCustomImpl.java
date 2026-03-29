@@ -45,4 +45,16 @@ public class PedidoRepositoryCustomImpl implements PedidoRepositoryCustom{
                 .fetch();
     }
 
+    @Override
+    public List<Tuple> mediaPedidosPorVendedor(Predicate predicate) {
+        return new JPAQueryFactory(entityManager)
+                .select(
+                        pedido.vendedor.id,
+                        pedido.id.count().doubleValue()
+                )
+                .from(pedido)
+                .where(predicate)
+                .groupBy(pedido.vendedor.id)
+                .fetch();
+    }
 }

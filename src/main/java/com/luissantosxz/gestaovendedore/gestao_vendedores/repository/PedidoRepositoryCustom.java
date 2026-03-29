@@ -16,4 +16,5 @@ public interface PedidoRepositoryCustom {
 
     List<Tuple> quantidadePorStatus(Predicate predicate);
 
+    List<Tuple> mediaPedidosPorVendedor(Predicate predicate);
 }

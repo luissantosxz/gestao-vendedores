@@ -1,5 +1,6 @@
 package com.luissantosxz.gestaovendedore.gestao_vendedores.controller;
 
+import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.MediaPedidoPorVendedorDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoRequestDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.PedidoResponseDTO;
 import com.luissantosxz.gestaovendedore.gestao_vendedores.dto.QuantidadePorStatusDTO;
@@ -66,4 +67,31 @@ public class PedidoController {
     ){
         return service.quantidadePorStatus(empresaId, vendedorId, inicio, fim);
     }
+
+    @PutMapping("{id}/ajuste")
+    public PedidoResponseDTO solicitarAjuste(
+            @PathVariable Integer id,
+            @RequestParam String observacao
+    ){
+        return service.solicitarAjuste(id, observacao);
+    }
+
+    @PutMapping("{id}/ajustado")
+    public PedidoResponseDTO realizarAjuste(
+            @PathVariable Integer id,
+            @RequestBody PedidoRequestDTO dto
+    ){
+        return service.realizarAjuste(id, dto);
+    }
+
+    @GetMapping("/relatorio/media-vendedor")
+    public List<MediaPedidoPorVendedorDTO> mediaPorVendedor(
+            @RequestParam(required = false) Integer empresaId,
+            @RequestParam(required = false) Integer vendedorId,
+            @RequestParam(required = false) LocalDateTime inicio,
+            @RequestParam(required = false) LocalDateTime fim
+    ){
+        return service.mediaPorVendedor(empresaId, vendedorId, inicio, fim);
+    }
+
 }

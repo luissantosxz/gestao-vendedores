@@ -6,8 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum EStatusPedido {
-    EM_TRATEMENTO("EM TRATAMENTO"),
     CADASTRADO("CADASTRADO"),
+    EM_TRATEMENTO("EM TRATAMENTO"),
+    AJUSTE_SOLICITACAO("AJUSTE"),
     CONCLUIDO("CONCLUIDO");
 
     private final String descricao;
